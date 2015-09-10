@@ -1,6 +1,6 @@
 # omkafka
 
-Try rsyslog kafka producer module, [omkafka](http://www.rsyslog.com/doc/master/configuration/modules/omkafka.html).
+Try rsyslog module for Apache kafka, [omkafka](http://www.rsyslog.com/doc/master/configuration/modules/omkafka.html) on Docker container. 
 
 ## Build
 
@@ -16,7 +16,7 @@ Start kafka broker,
 $ docker run --rm -it \
     --name kafka \
     --publish 9092:9092 \
-    --env ADVERTISED_HOST=192.168.59.103 \
+    --env ADVERTISED_HOST=${DOCKER_HOST} \
     --env ADVERTISED_PORT=9092 \
     tcnksm/single-kafka
 ```
@@ -40,9 +40,9 @@ Run rsyslog and send log by hand,
 # logger 'Hello, world'
 ```
 
-Check the log can be consumed,
+Check the log can be consumed, you can find `Hello world` message. 
 
 ```bash
-$ kafkacat -C -t omkafka -b 192.168.59.103:9092
+$ kafkacat -C -t omkafka -b ${DOCKER_HOST}:9092
 ```
 
